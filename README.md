@@ -17,37 +17,118 @@ node index.js
 
 ### Quizzes
 
-**`GET` /quizzes**  
+##### `GET` /quizzes  
 Returns a list of all quizzes
 
-**`GET` /quizzes/:id**  
+##### `GET` /quizzes/:quizId  
 Returns a single quiz
+
+* **Parameters:**  
+  * **quizId:** *(required)* <String> - the quiz ID
+
+-----------------------------------------------
 
 ### Questions
 
-**`PUT` /quizzes/:id/questions/:questionId**  
-Updates an entire question
-
-**`POST` /quizzes/:id/questions/:questionId**  
+##### `POST` /quizzes/:quizId/questions  
 Returns the specified quiz with added question
 
-**`DELETE` /quizzes/:id/questions/:questionId**  
+* **Parameters:**  
+  * **quizId:** *(required)* <String> - the quiz ID
+
+
+* **Body Content:**  
+  * You must pass in a full question object like so:
+
+```json
+{
+  "title": "Question Title",
+  "answers": []
+}
+```
+
+##### `PUT` /quizzes/:quizId/questions/:questionId  
+Updates an entire question
+
+* **Parameters:**  
+  * **quizId:** *(required)* <String> - the quiz ID
+  * **questionId:** *(required)* <String> - the question ID
+
+
+* **Body Content:**  
+  * You must pass in a full question object like so:
+
+```json
+{
+  "title": "Question Title",
+  "answers": []
+}
+```
+
+##### `DELETE` /quizzes/:quizId/questions/:questionId  
 Removes the specified question
+
+* **Parameters:**  
+  * **quizId:** *(required)* <String> - the quiz ID
+  * **questionId:** *(required)* <String> - the question ID
+
+-----------------------------------------------
 
 ### Answers
 
-**`PUT` /quizzes/:id/questions/:questionId/:answerId**  
-Updates an entire answer within a question.
-
-**`POST` /quizzes/:id/questions/:questionId/:answerId**  
+##### `POST` /quizzes/:quizId/questions/:questionId/answers  
 Returns the specified question with the added answer
 
-**`DELETE` /quizzes/:id/questions/:questionId/:answerId**  
+* **Parameters:**  
+  * **quizId:** *(required)* <String> - the quiz ID
+  * **questionId:** *(required)* <String> - the question ID
+
+
+* **Body Content:**  
+  * You must pass in a full answer object like so:
+
+```json
+{
+  "title": "Answer title",
+  "score": 5
+}
+```
+
+##### `PUT` /quizzes/:quizId/questions/:questionId/answers/:answerId  
+Updates an entire answer within a question.
+
+* **Parameters:**  
+  * **quizId:** *(required)* <String> - the quiz ID
+  * **questionId:** *(required)* <String> - the question ID
+  * **answerId:** *(required)* <String> - the answer ID
+
+
+* **Body Content:**  
+  * You must pass in a full answer object like so:
+
+```json
+{
+  "title": "Answer title",
+  "score": 5
+}
+```
+
+##### `DELETE` /quizzes/:quizId/questions/:questionId/:answerId  
 Removes the specified answered
+
+* **Parameters:**  
+  * **quizId:** *(required)* <String> - the quiz ID
+  * **questionId:** *(required)* <String> - the question ID
+  * **answerId:** *(required)* <String> - the answer ID
+
+-----------------------------------------------
 
 ### Scores
 
-**`POST` /scores/:scoreValue**  
-Returns a detailed score summary
+##### `POST` /scores/:scoreValue  
+Submits a user's score and returns a detailed score summary
+
+* **Parameters:**  
+  * **scoreValue:** *(required)* <Integer> - a numeric score
 
 
