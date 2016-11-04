@@ -17,11 +17,11 @@ node index.js
 
 ### Quizzes
 
-**`GET` /quizzes**
+**`GET` /quizzes**  
 Returns a list of all quizzes
 
-**`GET` /quizzes/:id**
+**`GET` /quizzes/:id**  
 Returns a single quiz
 
-**`POST` /quizzes/:id/questions/:questionId**
+**`POST` /quizzes/:id/questions/:questionId**  
 Returns the specified quiz with added question
