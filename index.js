@@ -12,7 +12,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('port', process.env.PORT || 3001);
 app.locals.title = 'Quizzer'
-app.locals.scores = {}
+app.locals.scores = {
+  lowest: 'You are a SyntaxError!',
+  low: 'You are a...ReferenceError!',
+  high: 'You are a...TypeError!',
+  highest: 'You are an InternalError!'
+}
 
 app.locals.quizzes = [{
   title: 'What JavaScript Error Are You?',
@@ -136,14 +141,50 @@ app.post('/quizzes/:quizId/questions', (request, response) => {
     }
 });
 
+// Submit a score
+app.post('/score', (request, response) => {
+  const { score } = request.body;
+  let scoreType;
+
+  if (0 <= score && score < 4) {
+    scoreType = 'lowest';
+  }
+  else if (4 <= score && score < 8) {
+    scoreType = 'low';
+  }
+  else if (8 <= score && score <= 12) {
+    scoreType = 'high';
+  }
+  else {
+    scoreType = 'highest';
+  }
+
+  switch(scoreType) {
+    case 'lowest':
+        return response.send({ score: app.locals.scores.lowest });
+        break;
+    case 'low':
+        return response.send({ score: app.locals.scores.low });
+        break;
+    case 'high':
+        return response.send({ score: app.locals.scores.high });
+        break;
+    case 'highest':
+        return response.send({ score: app.locals.scores.highest });
+        break;
+    default:
+      return response
+        .status(422)
+        .send({ error: `Invalid score: ${score}` });
+  }
+});
+
 
 // Add an answer to a question
 // Update a question
 // Update an answer to a question
 // Delete a question
 // Delete an answer
-// POST a score
-
 
 if (!module.parent) {
   app.listen(app.get('port'), () => {
