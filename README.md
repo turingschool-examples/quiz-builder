@@ -128,10 +128,6 @@ Removes the specified answered
 ##### `POST` /scores  
 Submits a user's score and returns a detailed score summary
 
-* **Parameters:**  
-  * **scoreValue:** *(required)* <Integer> - a numeric score
-
-
 * **Body Content:**  
   * You must pass in a score object like so:
 
