@@ -13,10 +13,10 @@ app.use(express.static('public'));
 app.set('port', process.env.PORT || 3001);
 app.locals.title = 'Quizzer'
 app.locals.scores = {
-  lowest: 'You are a SyntaxError!',
-  low: 'You are a...ReferenceError!',
-  high: 'You are a...TypeError!',
-  highest: 'You are an InternalError!'
+  lowest: 'You are a SyntaxError! Even the most experienced and thoughtful developers are gunna miss a comma once in a while.',
+  low: 'You are a...ReferenceError! Trying to reference a variable that doesnt exist? If you love something, let it go. If it comes back to you, immediately push to master and thank your lucky stars.',
+  high: 'You are a...TypeError! When undefined is not a function, burn everything to the ground.',
+  highest: 'You are an InternalError! Something is very wrong deep down inside, but its nearly impossible to figure out what.'
 }
 
 app.locals.quizzes = [{
@@ -178,13 +178,6 @@ app.post('/score', (request, response) => {
         .send({ error: `Invalid score: ${score}` });
   }
 });
-
-
-// Add an answer to a question
-// Update a question
-// Update an answer to a question
-// Delete a question
-// Delete an answer
 
 if (!module.parent) {
   app.listen(app.get('port'), () => {
