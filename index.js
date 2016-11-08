@@ -142,7 +142,7 @@ app.post('/quizzes/:quizId/questions', (request, response) => {
 });
 
 // Submit a score
-app.post('/score', (request, response) => {
+app.post('/scores', (request, response) => {
   const { score } = request.body;
   let scoreType;
 
