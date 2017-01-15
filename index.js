@@ -5,6 +5,8 @@ const http = require('http').Server(app);
 const cors = require('express-cors');
 const bodyParser = require('body-parser');
 var path    = require("path");
+const logger = require('express-logger');
+const locus = require('locus');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -115,6 +117,22 @@ app.get('/quizzes/:id', (request, response) => {
   else { return response.sendStatus(404); }
 });
 
+// Delete a question
+app.delete('/quizzes/:quizId/questions/:questionId', (request, response) => {
+  const { questionId, quizId } = request.params;
+  const targetQuiz = app.locals.quizzes.find(q => q.id === parseInt(quizId));
+
+  if (targetQuiz) {
+    const quiz = targetQuiz.questions.filter(question => questionId !== question.id);
+    return response.send({ quiz });
+  } else {
+    return response
+      .status(404)
+      .send( { error: `The questions with an id of ${questionId} could not be deleted.`});
+  }
+
+});
+
 // Add a new question
 app.post('/quizzes/:quizId/questions', (request, response) => {
   const { quizId } = request.params;
@@ -131,10 +149,10 @@ app.post('/quizzes/:quizId/questions', (request, response) => {
   question.id = question.id || Date.now();
 
   const quiz = app.locals.quizzes.find(q => q.id == quizId);
-  if (quiz) { 
+  if (quiz) {
     quiz.questions.push(question);
     return response.send({ quiz });
-  } else { 
+  } else {
     return response
       .status(404)
       .send({ error: `Quiz with an id of ${quizId} not found.` });
