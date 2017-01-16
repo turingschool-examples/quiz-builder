@@ -123,7 +123,7 @@ app.delete('/quizzes/:quizId/questions/:questionId', (request, response) => {
   const targetQuiz = app.locals.quizzes.find(q => q.id === parseInt(quizId));
 
   if (targetQuiz) {
-    const quiz = targetQuiz.questions.filter(question => questionId !== question.id);
+    const quiz = targetQuiz.questions.filter(question => parseInt(questionId) !== question.id);
     return response.send({ quiz });
   } else {
     return response
